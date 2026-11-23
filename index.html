@@ -12,9 +12,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             text-align: center;
+            padding: 20px;
         }
         .container {
             background: rgba(255, 255, 255, 0.1);
@@ -43,10 +44,27 @@
             font-size: 0.9em;
             opacity: 0.8;
         }
+        button {
+            margin-top: 25px;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="content-to-pdf">
         <div class="emoji">🚀</div>
         <h1>Page TEST réussie !</h1>
         <p>Félicitations ! Cette page web a été créée et hébergée via <strong>GitHub Pages</strong>.</p>
@@ -54,5 +72,20 @@
         <p>Créée le 23 novembre 2026 pour le test de mikl10.</p>
         <div class="date">👋 Hello from Grok</div>
     </div>
+    <button onclick="downloadPDF()">📄 Télécharger en PDF</button>
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('content-to-pdf');
+            const opt = {
+                margin: 10,
+                filename: 'page-test-github.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
 </body>
 </html>
