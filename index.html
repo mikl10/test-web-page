@@ -10,6 +10,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -44,8 +45,14 @@
             font-size: 0.9em;
             opacity: 0.8;
         }
-        button {
+        .buttons {
             margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button {
             padding: 12px 30px;
             font-size: 1.1em;
             background: white;
@@ -72,7 +79,10 @@
         <p>Créée le 23 novembre 2026 pour le test de mikl10.</p>
         <div class="date">👋 Hello from Grok</div>
     </div>
-    <button onclick="downloadPDF()">📄 Télécharger en PDF</button>
+    <div class="buttons">
+        <button onclick="downloadPDF()">📄 Télécharger en PDF</button>
+        <button onclick="sendByEmail()">📧 Envoyer par mail</button>
+    </div>
 
     <script>
         function downloadPDF() {
@@ -85,6 +95,12 @@
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             html2pdf().set(opt).from(element).save();
+        }
+
+        function sendByEmail() {
+            const subject = encodeURIComponent('Page TEST GitHub Pages');
+            const body = encodeURIComponent('Bonjour,\n\nVoici le lien vers ma page TEST :\nhttps://mikl10.github.io/test-web-page/\n\n(Tu peux aussi joindre le PDF si tu l\'as téléchargé)\n\nCordialement');
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
         }
     </script>
 </body>
